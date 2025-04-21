@@ -1,0 +1,1 @@
+node down.mjs 2> ./log/nodeError.txt
