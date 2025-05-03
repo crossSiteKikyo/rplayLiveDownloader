@@ -77,7 +77,7 @@ async function main() {
 function getCreatorInfoAndRequestorOid() {
     // requestor정보
     let data;
-    if(fs.existsSync('json/requestor-dev.json'))
+    if (fs.existsSync('json/requestor-dev.json'))
         data = fs.readFileSync("./json/requestor-dev.json", { encoding: "utf8" });
     else
         data = fs.readFileSync("./json/requestor.json", { encoding: "utf8" });
@@ -86,7 +86,7 @@ function getCreatorInfoAndRequestorOid() {
     rplayRequestHeadersWithAuthorization['Authorization'] = data["_AUTHORIZATION_"];
 
     // 크리에이터 정보
-    if(fs.existsSync('json/creatorInfo-dev.json'))
+    if (fs.existsSync('json/creatorInfo-dev.json'))
         data = fs.readFileSync("./json/creatorInfo-dev.json", { encoding: "utf8" });
     else
         data = fs.readFileSync("./json/creatorInfo.json", { encoding: "utf8" });
@@ -135,19 +135,19 @@ async function checkCreatorLive(creator) {
         creator.streamStartTime = ISOStringToKoreaDateString(data.streamStartTime);
         // 보는게 불가능한 상태에서 가능한 상태로 변했다면 녹화시작.
         if (!(creator.streamLive == true && creator.accessible == true)) {
-            if(data.streamState == "live" && data.accessible == true) {
+            if (data.streamState == "live" && data.accessible == true) {
                 log.creatorStartEndToFile(`${creator.nickname} 크리에이터 방송시작시간: ${creator.streamStartTime}`);
             }
         }
         // 보는게 가능한 상태에서 불가능한 상태로 변한다면 녹화종료.
         if (creator.streamLive == true && creator.accessible == true) {
-            if(data.streamState == "offline" || data.accessible == false) {
+            if (data.streamState == "offline" || data.accessible == false) {
                 log.creatorStartEndToFile(`${creator.nickname} 크리에이터 방송종료`);
                 mergeVideos(creator);
             }
         }
         // "live"라이브중 "offline"종료
-        if (data.streamState == "live") {            
+        if (data.streamState == "live") {
             creator.streamLive = true;
         }
         else if (data.streamState == "offline") {

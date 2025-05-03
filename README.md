@@ -48,12 +48,13 @@ npm install
 
 - linux
 
-    1.
-    2.
+    1. create new .service file at /etc/systemd/system/rplaylivedownload.service
+    2. systemctl enable rplaylivedownload.service
 
 ## directory structure
 ```
 rplayLiveDownloader/
+├─ log/
 ├─ json/
 │  ├─ requestor.json
 │  └─ creatorInfo.json
