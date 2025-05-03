@@ -1,6 +1,8 @@
 node_modules/
 data/
-log/
+log/creatorStartEndLog.txt
+log/downloadSucceedLog.txt
+log/errorLog.txt
 json/*-dev.json
 merge.mjs
 test.mjs
