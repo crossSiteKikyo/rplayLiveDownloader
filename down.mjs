@@ -262,7 +262,14 @@ async function getStreamPlayList(creator) {
         // 각 해상도마다 videoUrl을 알아낸다.
         let playableVideosInfo = response.data.match(/#EXT-X-MEDIA[\S]+\n#EXT-X-STREAM-INF[\S]+\nhttps:[\S]+/g);
         // 여기서 가장 높은 해상도의 url을 알아내 creator.videoUrl에 저장한다.
-        creator.streamVideoUrl = playableVideosInfo[0].match(/https[\S]+/)[0];
+        let maxRESOLUTION = 0
+        for (let p of playableVideosInfo) {
+            let resolution = Number(p.match(/(?<=RESOLUTION=)\d+/)[0])
+            if(resolution > maxRESOLUTION) {
+                maxRESOLUTION = resolution
+                creator.streamVideoUrl = p.match(/https[\S]+/)[0];
+            }
+        }
     } catch (error) {
         log.errorToFile(`${creator.nickname} 크리에이터 stream play list 정보 가져오기 오류`);
     }
